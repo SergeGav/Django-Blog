@@ -32,6 +32,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'blogs',
+    'dashboards',
+    'crispy_forms',
+    'crispy_bootstrap4',
 
     
     'django.contrib.admin',
@@ -65,6 +68,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'blogs.context_processors.get_categories',
+                'blogs.context_processors.get_social_links',
+                'blogs.context_processors.get_my_web',
             ],
         },
     },
@@ -131,3 +137,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR /'media'
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

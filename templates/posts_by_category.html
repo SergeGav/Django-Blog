@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+      <!-- Featured Posts -->
+      <h3
+        class="text-uppercase text-warning"
+        style="letter-spacing: 2px; text-align: center"
+      >
+        Catgeory - {{category_id}}
+      </h3>
+      <div class="row mb-2">
+        {% if posts %} {% for post in posts%}
+        <div class="col-md-6">
+          <div class="card border-0">
+            <div class="card-body">
+              <h3><a href="{% url 'blogs' post.slug %}" class="text-dark">{{ post.title }}</a></h3>
+              <small class="mb-1 text-muted"
+                >{{ post.created_at | timesince }} ago | {{post.author}}</small
+              >
+              <p class="card-text">
+                {{post.short_description | truncatewords:25 }}
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor%} {% else %}
+        <p class="text-uppercase" style="color:#E6534E; font-weight: 600; margin-top: 50px; letter-spacing: 2px;">We have no posts here at the moment. Please come back later</p>
+        {% endif %}
+      </div>
+
+      <!-- /.container -->
+    </div>
+    {% endblock %}

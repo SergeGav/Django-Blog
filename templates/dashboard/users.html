@@ -1,0 +1,54 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+<!-- Dashboard -->
+<div class="row dashboard">
+    <!-- Left Side Bar -->
+    <!-- Load side bar -->
+    {% include 'dashboard/sidebar.html' %}
+
+    <!--Right Side Content -->
+    <div class="col-md-9">
+      {% if perms.auth.view_user %}
+        <h3 class="text-center mb-5">All Users</h3>
+        <a href="{% url 'add_user' %}" class="btn btn-dark float-right m-3">Add User</a>
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Fullname</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Active</th>
+                <th>Staff</th>
+                <th>Superuser</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+              <tr>
+                <th>{{forloop.counter}}</th>
+                <td>{{user.first_name}} {{user.last_name}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.email}}</td>
+                <td>{% if user.is_active %}<i class="fa fa-check py-2 w-25">{% else %} <i class="fa fa-times py-2 w-25"></i> {% endif %}</td>
+                <td>{% if user.is_staff %}<i class="fa fa-check py-2 w-25">{% else %} <i class="fa fa-times py-2 w-25"></i> {% endif %}</td>
+                <td>{% if user.is_superuser %}<i class="fa fa-check py-2 w-25">{% else %} <i class="fa fa-times py-2 w-25"></i> {% endif %}</td>
+                <td>
+                    <a href="{% url 'edit_user' user.id %}"><i class="fa fa-edit py-2 w-25"></i></a>
+                    &nbsp;
+                    <a href="{% url 'delete_user' user.id%}"><i class="fa fa-trash text-danger py-2 w-25"></i></a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <h5>You do not have permission to view this page</h5>
+          {% endif %}
+    </div>
+</div>
+
+{% endblock %}

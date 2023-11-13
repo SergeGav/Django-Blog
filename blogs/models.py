@@ -12,6 +12,7 @@ class Category(models.Model):
         verbose_name_plural = 'categories'
 
 # Display the names of the fields added to Categories 
+# directly linked to displaying the navigation categories 
     def __str__(self):
         return self.category_name
     
@@ -37,3 +38,46 @@ class Blog(models.Model):
     # Display the names of the fields added to Categories 
     def __str__(self):
         return self.title
+    
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    comment = models.TextField(max_length=250)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.comment
+
+    
+class About(models.Model):
+    about_heading = models.CharField(max_length=25)
+    about_description = models.TextField(max_length=225)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta: 
+        verbose_name_plural = 'About'
+
+    def __str__(self):
+        return self.about_heading
+    
+class SocialLink(models.Model): 
+    platform = models.CharField(max_length=25)
+    link = models.URLField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.platform
+    
+class MyWeb(models.Model): 
+    myname = models.CharField(max_length=25)
+    mylink = models.URLField(max_length=100)
+
+    class Meta: 
+        verbose_name_plural = 'My Website'
+
+    def __str__(self):
+        return self.myname
